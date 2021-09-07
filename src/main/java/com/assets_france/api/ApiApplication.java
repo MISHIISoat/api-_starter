@@ -1,11 +1,11 @@
 package com.assets_france.api;
 
-import com.assets_france.api.domain.Role;
-import com.assets_france.api.domain.User;
-import com.assets_france.api.sender.EmailSenderService;
-import com.assets_france.api.service.RoleService;
-import com.assets_france.api.service.UserRoleService;
-import com.assets_france.api.service.UserService;
+import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaRole;
+import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaUser;
+import com.assets_france.api.sender.infrastructure.EmailSenderService;
+import com.assets_france.api.account.domain.dao.RoleDao;
+import com.assets_france.api.account.domain.dao.AccountRoleDao;
+import com.assets_france.api.account.domain.dao.AccountDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -52,23 +52,23 @@ public class ApiApplication {
     }
 
     @Bean
-    CommandLineRunner run(UserService userService, RoleService roleService, UserRoleService userRoleService) {
+    CommandLineRunner run(AccountDao accountDao, RoleDao roleDao, AccountRoleDao accountRoleDao) {
         return args -> {
-            roleService.save(new Role(null, "ROLE_USER"));
-            roleService.save(new Role(null, "ROLE_PARTNER"));
-            roleService.save(new Role(null, "ROLE_ADMIN"));
-            roleService.save(new Role(null, "ROLE_SUPER_ADMIN"));
+            roleDao.save(new JpaRole(null, "ROLE_USER"));
+            roleDao.save(new JpaRole(null, "ROLE_PARTNER"));
+            roleDao.save(new JpaRole(null, "ROLE_ADMIN"));
+            roleDao.save(new JpaRole(null, "ROLE_SUPER_ADMIN"));
 
-            userService.save(new User(null, "John", " Travolta","john@travolta.com", "1234", new ArrayList<>()));
-            userService.save(new User(null, "Jim", " Carrey","jim@carrey.com", "1234", new ArrayList<>()));
-            userService.save(new User(null, "Will", "Smith", "will@smith.fr", "7896", new ArrayList<>()));
-            userService.save(new User(null, "Masa", "Ishii", "masa@ishii.fr", "123123", new ArrayList<>()));
+            accountDao.save(new JpaUser(null, "John", " Travolta","john@travolta.com", "1234", new ArrayList<>()));
+            accountDao.save(new JpaUser(null, "Jim", " Carrey","jim@carrey.com", "1234", new ArrayList<>()));
+            accountDao.save(new JpaUser(null, "Will", "Smith", "will@smith.fr", "7896", new ArrayList<>()));
+            accountDao.save(new JpaUser(null, "Masa", "Ishii", "masa@ishii.fr", "123123", new ArrayList<>()));
 
-            userRoleService.addRoleToUser("john@travolta.com", "ROLE_PARTNER");
-            userRoleService.addRoleToUser("john@travolta.com", "ROLE_USER");
-            userRoleService.addRoleToUser("jim@carrey.com", "ROLE_PARTNER");
-            userRoleService.addRoleToUser("will@smith.fr", "ROLE_ADMIN");
-            userRoleService.addRoleToUser("masa@ishii.fr", "ROLE_SUPER_ADMIN");
+            accountRoleDao.addRoleToUser("john@travolta.com", "ROLE_PARTNER");
+            accountRoleDao.addRoleToUser("john@travolta.com", "ROLE_USER");
+            accountRoleDao.addRoleToUser("jim@carrey.com", "ROLE_PARTNER");
+            accountRoleDao.addRoleToUser("will@smith.fr", "ROLE_ADMIN");
+            accountRoleDao.addRoleToUser("masa@ishii.fr", "ROLE_SUPER_ADMIN");
         };
     }
 }
