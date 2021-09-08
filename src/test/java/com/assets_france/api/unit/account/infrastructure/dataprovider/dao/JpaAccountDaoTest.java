@@ -8,7 +8,7 @@ import com.assets_france.api.account.infrastructure.dataprovider.dao.JpaAccountD
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaAccount;
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaRole;
 import com.assets_france.api.account.infrastructure.dataprovider.repository.AccountRepository;
-import com.assets_france.api.shared.exception.NotFoundException;
+import com.assets_france.api.shared.domain.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -83,7 +83,7 @@ class JpaAccountDaoTest {
     class FindByUsernameTest {
 
         @Test
-        void should_return_find_account_by_username() throws NotFoundException, com.assets_france.api.shared.exception.NotFoundException {
+        void should_return_find_account_by_username() throws NotFoundException {
             var entityRole = new JpaRole().setId(6L).setName("new role");
             var foundAccount = new JpaAccount()
                     .setId(1L)

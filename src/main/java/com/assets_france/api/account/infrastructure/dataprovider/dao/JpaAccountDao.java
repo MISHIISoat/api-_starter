@@ -5,14 +5,14 @@ import com.assets_france.api.account.domain.entity.Account;
 import com.assets_france.api.account.domain.exception.AccountExceptionType;
 import com.assets_france.api.account.domain.mapper.AccountMapper;
 import com.assets_france.api.account.infrastructure.dataprovider.repository.AccountRepository;
-import com.assets_france.api.shared.exception.NotFoundException;
+import com.assets_france.api.shared.domain.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,14 +46,9 @@ public class JpaAccountDao implements AccountDao {
     @Override
     @Transactional
     public List<Account> findAll() {
-        //log.info("Fetching all users");
-        var users = accountRepository.findAll();
-
-        users.forEach(user -> {
-            Hibernate.initialize(user.getRoles());
-        });
-
-        //return users;
-        return null;
+        return accountRepository.findAll()
+                .stream()
+                .map(accountMapper::entityToDomain)
+                .collect(Collectors.toList());
     }
 }

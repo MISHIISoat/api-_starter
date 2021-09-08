@@ -2,7 +2,7 @@ package com.assets_france.api.security.infrastructure;
 
 import com.assets_france.api.security.infrastructure.filter.CustomAuthenticationFilter;
 import com.assets_france.api.security.infrastructure.filter.CustomAuthorizationFilter;
-import com.assets_france.api.shared.helper.JsonHelper;
+import com.assets_france.api.shared.domain.helper.JsonHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

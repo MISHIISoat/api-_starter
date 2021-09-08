@@ -1,6 +1,6 @@
-package com.assets_france.api.shared.helper;
+package com.assets_france.api.shared.domain.helper;
 
-import com.assets_france.api.shared.exception.JsonHelperException;
+import com.assets_france.api.shared.domain.exception.JsonHelperException;
 
 import java.io.InputStream;
 

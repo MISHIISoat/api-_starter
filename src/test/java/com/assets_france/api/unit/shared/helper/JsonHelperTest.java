@@ -1,7 +1,7 @@
 package com.assets_france.api.unit.shared.helper;
 
-import com.assets_france.api.shared.helper.JsonHelperImpl;
-import com.assets_france.api.shared.exception.JsonHelperException;
+import com.assets_france.api.shared.helper.json.JsonHelperImpl;
+import com.assets_france.api.shared.domain.exception.JsonHelperException;
 import lombok.Data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
