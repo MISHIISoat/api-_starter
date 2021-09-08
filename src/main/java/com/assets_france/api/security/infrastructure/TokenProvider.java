@@ -46,7 +46,6 @@ public class TokenProvider {
         long now = (new Date()).getTime();
         Date validity = new Date(now + getTokenValidityInMilliseconds(typeToken));
 
-        log.info("authorities : {}", authorities);
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
@@ -80,6 +79,7 @@ public class TokenProvider {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
         User principal = new User(claims.getSubject(), "", authorities);
+        log.info("Get authentication of user : {}", principal.getUsername());
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 

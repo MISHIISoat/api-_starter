@@ -5,43 +5,18 @@ import com.assets_france.api.account.domain.dao.AccountRoleDao;
 import com.assets_france.api.account.domain.dao.RoleDao;
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaRole;
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaUser;
-import com.assets_france.api.sender.infrastructure.EmailSenderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
 
-import javax.mail.MessagingException;
 import java.util.ArrayList;
 
 @SpringBootApplication
 public class ApiApplication {
 
-    @Autowired
-    private EmailSenderService service;
-
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
-    }
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void triggerMail() throws MessagingException {
-//        service.sendSimpleEmail(
-//                "johnny12doe34@gmail.com",
-//                "This is the Email Body...",
-//                "This is the Email Subject"
-//        );
-
-//        service.sentEmailWithAttachment(
-//                "ishiimasataka@yahoo.fr",
-//                "This is Email Body with Attachment...",
-//                "This email has attachment",
-//                "D:\\Création perso\\Action.pdf"
-//        );
-
     }
 
     @Bean
