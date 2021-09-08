@@ -1,12 +1,13 @@
 package com.assets_france.api.account.domain.entity;
 
-import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaRole;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
+@Accessors(chain = true)
 public class Account {
     private Long id;
 
@@ -16,7 +17,9 @@ public class Account {
 
     private String username;
 
+    private String email;
+
     private String password;
 
-    private Collection<JpaRole> roles = new ArrayList<>();
+    private Collection<Role> roles = new ArrayList<>();
 }

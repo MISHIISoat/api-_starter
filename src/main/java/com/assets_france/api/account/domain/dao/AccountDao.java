@@ -1,13 +1,14 @@
 package com.assets_france.api.account.domain.dao;
 
-import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaUser;
+import com.assets_france.api.account.domain.entity.Account;
+import com.assets_france.api.shared.exception.NotFoundException;
 
 import java.util.List;
 
 public interface AccountDao {
-    JpaUser save(JpaUser user);
+    Account save(Account user);
 
-    JpaUser findByUsername(String username);
+    Account findByUsername(String username) throws NotFoundException, com.assets_france.api.shared.exception.NotFoundException;
 
-    List<JpaUser> findAll();
+    List<Account> findAll();
 }

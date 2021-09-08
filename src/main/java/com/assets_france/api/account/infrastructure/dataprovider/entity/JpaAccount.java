@@ -1,8 +1,7 @@
 package com.assets_france.api.account.infrastructure.dataprovider.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,9 +9,8 @@ import java.util.Collection;
 
 @Entity(name = "user")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class JpaUser {
+@Accessors(chain = true)
+public class JpaAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +23,9 @@ public class JpaUser {
 
     @Column(name = "username")
     private String username;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;

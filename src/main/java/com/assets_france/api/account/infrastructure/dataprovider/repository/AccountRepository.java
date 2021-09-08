@@ -1,8 +1,10 @@
 package com.assets_france.api.account.infrastructure.dataprovider.repository;
 
-import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaUser;
+import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccountRepository extends JpaRepository<JpaUser, Long> {
-    JpaUser findByUsername(String username);
+import java.util.Optional;
+
+public interface AccountRepository extends JpaRepository<JpaAccount, Long> {
+    Optional<JpaAccount> findByUsername(String username);
 }
