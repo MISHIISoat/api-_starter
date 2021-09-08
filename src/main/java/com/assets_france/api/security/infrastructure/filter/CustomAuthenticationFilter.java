@@ -1,6 +1,8 @@
 package com.assets_france.api.security.infrastructure.filter;
 
 import com.assets_france.api.security.infrastructure.TokenProvider;
+import com.assets_france.api.shared.helper.JsonHelper;
+import com.assets_france.api.shared.helper.exception.JsonHelperException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,25 +24,29 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final TokenProvider tokenProvider;
-    private final ObjectMapper objectMapper;
+    private final JsonHelper jsonHelper;
 
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, TokenProvider tokenProvider) {
+    public CustomAuthenticationFilter(
+            AuthenticationManager authenticationManager,
+            TokenProvider tokenProvider,
+            JsonHelper jsonHelper
+    ) {
         super(authenticationManager);
         super.setFilterProcessesUrl("/api/login");
         this.tokenProvider = tokenProvider;
-        this.objectMapper = new ObjectMapper();
+        this.jsonHelper = jsonHelper;
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            var loginRequest = objectMapper.readValue(request.getInputStream(), LoginRequest.class);
+            var loginRequest = jsonHelper.readInputStreamValue(request.getInputStream(), LoginRequest.class);
 
             return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(
                     loginRequest.getUsername(),
                     loginRequest.getPassword()
             ));
-        } catch (IOException e) {
+        } catch (IOException | JsonHelperException e) {
             e.printStackTrace();
             throw new BadCredentialsException("Could not authenticate user");
         }

@@ -2,6 +2,7 @@ package com.assets_france.api.security.infrastructure;
 
 import com.assets_france.api.security.infrastructure.filter.CustomAuthenticationFilter;
 import com.assets_france.api.security.infrastructure.filter.CustomAuthorizationFilter;
+import com.assets_france.api.shared.helper.JsonHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final TokenProvider tokenProvider;
+    private final JsonHelper jsonHelper;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -39,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new CustomAuthenticationFilter(authenticationManager(), tokenProvider))
+                .addFilter(new CustomAuthenticationFilter(authenticationManager(), tokenProvider, jsonHelper))
                 .addFilterBefore(new CustomAuthorizationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
     }
 
