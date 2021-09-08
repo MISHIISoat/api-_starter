@@ -1,6 +1,6 @@
 package com.assets_france.api.shared.helper;
 
-import com.assets_france.api.shared.helper.exception.JsonHelperException;
+import com.assets_france.api.shared.exception.JsonHelperException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 

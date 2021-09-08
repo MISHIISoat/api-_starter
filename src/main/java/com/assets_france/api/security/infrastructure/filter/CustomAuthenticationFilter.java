@@ -2,7 +2,7 @@ package com.assets_france.api.security.infrastructure.filter;
 
 import com.assets_france.api.security.infrastructure.TokenProvider;
 import com.assets_france.api.shared.helper.JsonHelper;
-import com.assets_france.api.shared.helper.exception.JsonHelperException;
+import com.assets_france.api.shared.exception.JsonHelperException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

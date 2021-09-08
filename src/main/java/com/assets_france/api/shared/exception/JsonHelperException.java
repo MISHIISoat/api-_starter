@@ -1,4 +1,4 @@
-package com.assets_france.api.shared.helper.exception;
+package com.assets_france.api.shared.exception;
 
 public class JsonHelperException extends Exception {
     public JsonHelperException(String message) {
