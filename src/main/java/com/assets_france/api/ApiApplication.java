@@ -3,7 +3,7 @@ package com.assets_france.api;
 import com.assets_france.api.account.domain.dao.AccountDao;
 import com.assets_france.api.account.domain.dao.AccountRoleDao;
 import com.assets_france.api.account.domain.dao.RoleDao;
-import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaRole;
+import com.assets_france.api.account.domain.entity.Role;
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaUser;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,10 +22,10 @@ public class ApiApplication {
     @Bean
     CommandLineRunner run(AccountDao accountDao, RoleDao roleDao, AccountRoleDao accountRoleDao) {
         return args -> {
-            roleDao.save(new JpaRole(null, "ROLE_USER"));
-            roleDao.save(new JpaRole(null, "ROLE_PARTNER"));
-            roleDao.save(new JpaRole(null, "ROLE_ADMIN"));
-            roleDao.save(new JpaRole(null, "ROLE_SUPER_ADMIN"));
+            roleDao.save(new Role().setName("ROLE_USER"));
+            roleDao.save(new Role().setName("ROLE_PARTNER"));
+            roleDao.save(new Role().setName("ROLE_ADMIN"));
+            roleDao.save(new Role().setName("ROLE_SUPER_ADMIN"));
 
             accountDao.save(new JpaUser(null, "John", " Travolta","john@travolta.com", "1234", new ArrayList<>()));
             accountDao.save(new JpaUser(null, "Jim", " Carrey","jim@carrey.com", "1234", new ArrayList<>()));

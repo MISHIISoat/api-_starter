@@ -41,7 +41,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             var loginRequest = jsonHelper.readInputStreamValue(request.getInputStream(), LoginRequest.class);
-
             return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(
                     loginRequest.getUsername(),
                     loginRequest.getPassword()

@@ -1,7 +1,7 @@
 package com.assets_france.api.account.infrastructure.entrypoint;
 
-import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaRole;
 import com.assets_france.api.account.domain.dao.RoleDao;
+import com.assets_france.api.account.domain.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class RoleController {
     private final RoleDao roleDao;
 
     @PostMapping
-    public ResponseEntity<JpaRole> save(@RequestBody JpaRole role) {
+    public ResponseEntity<Role> save(@RequestBody Role role) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().toUriString());
         return created(uri).body(roleDao.save(role));
     }
