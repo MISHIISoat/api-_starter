@@ -18,6 +18,7 @@
 
         <jjwt.version>0.9.1</jjwt.version>
         <jaxb.version>2.3.1</jaxb.version>
+        <restassured.version>3.3.0</restassured.version>
     </properties>
     <dependencies>
         <dependency>
@@ -82,6 +83,18 @@
             <artifactId>slf4j-mock</artifactId>
             <version>2.1.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-osgi</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
