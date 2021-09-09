@@ -18,8 +18,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -54,7 +54,7 @@ class JpaAccountDaoTest {
             var accountToSave = new Account()
                     .setFirstName("toto")
                     .setLastName("tata")
-                    .setRoles(List.of(new Role().setId(7L).setName("role")))
+                    .setRoles(Set.of(new Role().setId(7L).setName("role")))
                     .setPassword(concernedPassword)
                     .setUsername("username")
                     .setEmail("toto@email.com");
@@ -64,7 +64,7 @@ class JpaAccountDaoTest {
             var savedAccount = new JpaAccount()
                     .setFirstName("toto")
                     .setLastName("tata")
-                    .setRoles(List.of(new JpaRole().setId(7L).setName("role")))
+                    .setRoles(Set.of(new JpaRole().setId(7L).setName("role")))
                     .setPassword(concernedPassword)
                     .setUsername("username")
                     .setEmail("toto@email.com");
@@ -92,7 +92,7 @@ class JpaAccountDaoTest {
                     .setUsername("username")
                     .setEmail("username@gmail.com")
                     .setPassword("a_password")
-                    .setRoles(List.of(entityRole));
+                    .setRoles(Set.of(entityRole));
             when(mockAccountRepository.findByUsername("concernedUsername")).thenReturn(Optional.of(foundAccount));
 
             var expectedAccount = new Account()
@@ -102,7 +102,7 @@ class JpaAccountDaoTest {
                     .setUsername(foundAccount.getUsername())
                     .setEmail(foundAccount.getEmail())
                     .setPassword(foundAccount.getPassword())
-                    .setRoles(List.of(new Role().setId(entityRole.getId()).setName(entityRole.getName())));
+                    .setRoles(Set.of(new Role().setId(entityRole.getId()).setName(entityRole.getName())));
 
             var result = sut.findByUsername("concernedUsername");
 

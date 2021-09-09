@@ -4,8 +4,8 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "user")
 @Data
@@ -31,5 +31,5 @@ public class JpaAccount {
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<JpaRole> roles = new ArrayList<>();
+    private Set<JpaRole> roles = new HashSet<>();
 }

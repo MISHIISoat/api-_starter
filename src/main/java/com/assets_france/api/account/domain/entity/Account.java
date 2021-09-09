@@ -3,8 +3,8 @@ package com.assets_france.api.account.domain.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Accessors(chain = true)
@@ -21,5 +21,5 @@ public class Account {
 
     private String password;
 
-    private Collection<Role> roles = new ArrayList<>();
+    private Set<Role> roles = new HashSet<>();
 }

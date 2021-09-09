@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
+import java.util.Set;
 
 import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.ok;
@@ -20,8 +20,7 @@ public class AccountController {
     private final AccountDao accountDao;
 
     @GetMapping
-    public ResponseEntity<List<Account>> getAccounts() {
-
+    public ResponseEntity<Set<Account>> getAccounts() {
         return ok().body(accountDao.findAll());
     }
 

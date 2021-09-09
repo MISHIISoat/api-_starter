@@ -23,7 +23,7 @@ public class AccountMapper {
                 .setRoles(
                         entity.getRoles().stream()
                                 .map(roleMapper::entityToDomain)
-                                .collect(Collectors.toList())
+                                .collect(Collectors.toSet())
                 );
     }
 
@@ -38,7 +38,7 @@ public class AccountMapper {
                 .setRoles(
                         domain.getRoles().stream()
                                 .map(roleMapper::domainToEntity)
-                                .collect(Collectors.toList())
+                                .collect(Collectors.toSet())
                 );
     }
 }

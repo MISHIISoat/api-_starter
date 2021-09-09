@@ -3,12 +3,12 @@ package com.assets_france.api.account.domain.dao;
 import com.assets_france.api.account.domain.entity.Account;
 import com.assets_france.api.shared.domain.exception.NotFoundException;
 
-import java.util.List;
+import java.util.Set;
 
 public interface AccountDao {
     Account save(Account user);
 
-    Account findByUsername(String username) throws NotFoundException, NotFoundException;
+    Account findByUsername(String username) throws NotFoundException;
 
-    List<Account> findAll();
+    Set<Account> findAll();
 }
