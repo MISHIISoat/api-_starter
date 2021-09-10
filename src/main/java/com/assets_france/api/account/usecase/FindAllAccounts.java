@@ -5,14 +5,14 @@ import com.assets_france.api.account.domain.entity.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class FindAllAccounts {
     private final AccountDao accountDao;
 
-    public Set<Account> execute() {
+    public List<Account> execute() {
         return accountDao.findAll();
     }
 }

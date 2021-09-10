@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,10 +45,10 @@ public class JpaAccountDao implements AccountDao {
 
     @Override
     @Transactional
-    public Set<Account> findAll() {
+    public List<Account> findAll() {
         return accountRepository.findAll()
                 .stream()
                 .map(accountMapper::entityToDomain)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 }

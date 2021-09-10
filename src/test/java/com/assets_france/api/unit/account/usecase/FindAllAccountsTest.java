@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Set;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
@@ -35,7 +35,7 @@ class FindAllAccountsTest {
     @Test
     void should_return_set_accounts() {
         var account = new Account().setId(6L).setUsername("username").setFirstName("first").setLastName("lastname");
-        var setList = Set.of(account);
+        var setList = List.of(account);
         when(mockAccountDao.findAll()).thenReturn(setList);
 
         var result = sut.execute();
