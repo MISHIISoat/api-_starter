@@ -1,5 +1,6 @@
 package com.assets_france.api.security.infrastructure;
 
+import com.assets_france.api.security.infrastructure.filter.AuthEntryPointJwt;
 import com.assets_france.api.security.infrastructure.filter.CustomAuthenticationFilter;
 import com.assets_france.api.security.infrastructure.filter.CustomAuthorizationFilter;
 import com.assets_france.api.shared.domain.helper.JsonHelper;
@@ -24,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final TokenProvider tokenProvider;
     private final JsonHelper jsonHelper;
+    private final AuthEntryPointJwt unauthorizedHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -36,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .authorizeRequests()
                 .antMatchers("/api/login", "/api/auth/refresh-token").permitAll()
                 .antMatchers("/api/**").hasRole("USER")

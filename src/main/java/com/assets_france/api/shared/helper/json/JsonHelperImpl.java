@@ -1,7 +1,8 @@
 package com.assets_france.api.shared.helper.json;
 
-import com.assets_france.api.shared.domain.helper.JsonHelper;
 import com.assets_france.api.shared.domain.exception.JsonHelperException;
+import com.assets_france.api.shared.domain.helper.JsonHelper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
@@ -21,5 +22,15 @@ public class JsonHelperImpl implements JsonHelper {
         } catch (IOException exception) {
             throw new JsonHelperException(exception.getMessage());
         }
+    }
+
+    @Override
+    public String objectToJson(final Object object) {
+        try {
+            return objectMapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

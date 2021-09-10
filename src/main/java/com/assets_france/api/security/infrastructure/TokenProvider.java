@@ -80,6 +80,7 @@ public class TokenProvider {
                         .collect(Collectors.toList());
         User principal = new User(claims.getSubject(), "", authorities);
         log.info("Get authentication of user : {}", principal.getUsername());
+        System.out.println("totooooooooo getAuthentication");
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
