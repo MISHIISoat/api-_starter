@@ -1,5 +1,9 @@
 package com.assets_france.api.shared.helper.exception;
 
+import com.assets_france.api.shared.domain.exception.NotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -36,4 +40,9 @@ public class SharedExceptionsHandler extends ResponseEntityExceptionHandler {
 //
 //        return "";
 //    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<String> on(NotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }
