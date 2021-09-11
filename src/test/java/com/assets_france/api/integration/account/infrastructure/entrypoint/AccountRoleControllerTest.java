@@ -2,7 +2,6 @@ package com.assets_france.api.integration.account.infrastructure.entrypoint;
 
 import com.assets_france.api.account.infrastructure.entrypoint.request.AddRoleToAccountRequest;
 import com.assets_france.api.account.usecase.AddRoleToAccount;
-import com.assets_france.api.sender.domain.EmailSender;
 import com.assets_france.api.shared.domain.exception.NotFoundException;
 import com.assets_france.api.shared.domain.helper.JsonHelper;
 import org.junit.jupiter.api.Test;
@@ -27,9 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AccountRoleControllerTest {
     @Autowired
     MockMvc mockMvc;
-
-    @Autowired
-    EmailSender emailSender;
 
     @Autowired
     JsonHelper jsonHelper;

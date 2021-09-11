@@ -5,8 +5,11 @@ import com.assets_france.api.account.domain.entity.Account;
 import com.assets_france.api.account.domain.exception.AccountExceptionType;
 import com.assets_france.api.account.domain.mapper.AccountMapper;
 import com.assets_france.api.account.infrastructure.dataprovider.repository.AccountRepository;
+import com.assets_france.api.shared.domain.exception.ForbiddenException;
 import com.assets_france.api.shared.domain.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +48,22 @@ public class JpaAccountDao implements AccountDao {
 
     @Override
     @Transactional
+    public Page<Account> findAllPagination(Integer page, Integer size) throws ForbiddenException {
+        if (page == null || size == null) {
+            var message = String.format(
+                    "%s: page or size must be defined",
+                    AccountExceptionType.ACCOUNT_FORBIDDEN
+            );
+            throw new ForbiddenException(message);
+        }
+        var pageRequest = PageRequest.of(page, size);
+        return accountRepository.findAll(pageRequest)
+                .map(accountMapper::entityToDomain);
+    }
+
+    @Override
     public List<Account> findAll() {
-        return accountRepository.findAll()
-                .stream()
+        return accountRepository.findAll().stream()
                 .map(accountMapper::entityToDomain)
                 .collect(Collectors.toList());
     }

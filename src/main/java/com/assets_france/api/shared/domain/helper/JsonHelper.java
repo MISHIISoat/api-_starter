@@ -7,5 +7,7 @@ import java.io.InputStream;
 public interface JsonHelper {
     <T> T readInputStreamValue(InputStream value, Class<T> aClass) throws JsonHelperException;
 
+    <T> T readStringValue(String value, Class<T> aClass) throws JsonHelperException;
+
     String objectToJson(Object object);
 }

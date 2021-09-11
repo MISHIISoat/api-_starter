@@ -25,6 +25,15 @@ public class JsonHelperImpl implements JsonHelper {
     }
 
     @Override
+    public <T> T readStringValue(String value, Class<T> aClass) throws JsonHelperException {
+        try {
+            return objectMapper.readValue(value, aClass);
+        } catch (JsonProcessingException exception) {
+            throw new JsonHelperException(exception.getMessage());
+        }
+    }
+
+    @Override
     public String objectToJson(final Object object) {
         try {
             return objectMapper.writeValueAsString(object);
