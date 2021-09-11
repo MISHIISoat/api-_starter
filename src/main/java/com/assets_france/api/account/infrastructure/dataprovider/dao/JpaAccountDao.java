@@ -3,7 +3,7 @@ package com.assets_france.api.account.infrastructure.dataprovider.dao;
 import com.assets_france.api.account.domain.dao.AccountDao;
 import com.assets_france.api.account.domain.entity.Account;
 import com.assets_france.api.account.domain.exception.AccountExceptionType;
-import com.assets_france.api.account.domain.mapper.AccountMapper;
+import com.assets_france.api.account.infrastructure.dataprovider.mapper.AccountMapper;
 import com.assets_france.api.account.infrastructure.dataprovider.repository.AccountRepository;
 import com.assets_france.api.shared.domain.exception.ForbiddenException;
 import com.assets_france.api.shared.domain.exception.NotFoundException;

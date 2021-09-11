@@ -1,7 +1,7 @@
 package com.assets_france.api.integration.account.infrastructure.entrypoint;
 
+import com.assets_france.api.account.domain.dto.DtoAccount;
 import com.assets_france.api.account.domain.dto.DtoListAccount;
-import com.assets_france.api.account.domain.entity.Account;
 import com.assets_france.api.account.domain.entity.Role;
 import com.assets_france.api.account.domain.exception.AccountExceptionType;
 import com.assets_france.api.account.usecase.FindAllAccounts;
@@ -111,19 +111,17 @@ public class AccountControllerTest {
         @Test
         void when_request_not_contain_parameter_should_return_list_accounts() throws Exception {
             var accounts = List.of(
-                    new Account()
+                    new DtoAccount()
                             .setId(7L)
                             .setFirstName("john")
                             .setLastName("doe")
                             .setUsername("johndoe")
-                            .setPassword("johndoepassword")
                             .setRoles(Set.of(new Role().setId(7L).setName("role"))),
-                    new Account()
+                    new DtoAccount()
                             .setId(8L)
                             .setFirstName("jonas")
                             .setLastName("deo")
                             .setUsername("jonas")
-                            .setPassword("jonaspassword")
                             .setRoles(Set.of(new Role().setId(8L).setName("another role")))
             );
             var dtoListAccount = new DtoListAccount().setAccounts(accounts);
@@ -142,19 +140,17 @@ public class AccountControllerTest {
         @Test
         void when_request_contain_page_and_size_parameterss_should_return_list_accounts() throws Exception {
             var accounts = List.of(
-                    new Account()
+                    new DtoAccount()
                             .setId(7L)
                             .setFirstName("john")
                             .setLastName("doe")
                             .setUsername("johndoe")
-                            .setPassword("johndoepassword")
                             .setRoles(Set.of(new Role().setId(7L).setName("role"))),
-                    new Account()
+                    new DtoAccount()
                             .setId(8L)
                             .setFirstName("jonas")
                             .setLastName("deo")
                             .setUsername("jonas")
-                            .setPassword("jonaspassword")
                             .setRoles(Set.of(new Role().setId(8L).setName("another role")))
             );
             var dtoListAccount = new DtoListAccount().setAccounts(accounts);

@@ -1,5 +1,6 @@
 package com.assets_france.api.unit.account.usecase;
 
+import com.assets_france.api.account.domain.adapter.AccountAdapter;
 import com.assets_france.api.account.domain.dao.AccountDao;
 import com.assets_france.api.account.domain.dto.DtoListAccount;
 import com.assets_france.api.account.domain.entity.Account;
@@ -13,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
@@ -26,9 +28,11 @@ class FindAllAccountsTest {
 
     FindAllAccounts sut;
 
+    AccountAdapter accountAdapter = new AccountAdapter();
+
     @BeforeEach
     void setup() {
-        sut = new FindAllAccounts(mockAccountDao);
+        sut = new FindAllAccounts(mockAccountDao, accountAdapter);
     }
 
     @Test
@@ -40,8 +44,11 @@ class FindAllAccountsTest {
 
         var result = sut.execute(numberPage, numberSize);
 
+        var expectedDtoAccounts = listAccount.stream()
+                .map(accountAdapter::domainToDto)
+                .collect(Collectors.toList());
         var expected = new DtoListAccount()
-                .setAccounts(listAccount)
+                .setAccounts(expectedDtoAccounts)
                 .setHasNext(false)
                 .setHasPrevious(false)
                 .setTotalPages(1);
@@ -70,7 +77,10 @@ class FindAllAccountsTest {
 
         var result = sut.execute(null, numberSize);
 
-        var expected = new DtoListAccount().setAccounts(listAccount);
+        var expectedDtoAccounts = listAccount.stream()
+                .map(accountAdapter::domainToDto)
+                .collect(Collectors.toList());
+        var expected = new DtoListAccount().setAccounts(expectedDtoAccounts);
         assertThat(result).isEqualTo(expected);
     }
 

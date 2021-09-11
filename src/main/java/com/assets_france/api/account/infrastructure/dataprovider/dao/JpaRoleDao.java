@@ -2,7 +2,7 @@ package com.assets_france.api.account.infrastructure.dataprovider.dao;
 
 import com.assets_france.api.account.domain.dao.RoleDao;
 import com.assets_france.api.account.domain.entity.Role;
-import com.assets_france.api.account.domain.mapper.RoleMapper;
+import com.assets_france.api.account.infrastructure.dataprovider.mapper.RoleMapper;
 import com.assets_france.api.account.infrastructure.dataprovider.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
