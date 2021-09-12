@@ -1,4 +1,4 @@
-package com.assets_france.api.account.infrastructure.dataprovider.mapper;
+package com.assets_france.api.account.infrastructure.mapper;
 
 import com.assets_france.api.account.domain.entity.Role;
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaRole;

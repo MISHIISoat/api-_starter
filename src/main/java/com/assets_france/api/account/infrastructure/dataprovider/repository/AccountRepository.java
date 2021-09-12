@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<JpaAccount, Long>, PagingAndSortingRepository<JpaAccount, Long> {
     Optional<JpaAccount> findByUsername(String username);
+
+    Boolean existsByEmail(String email);
 }

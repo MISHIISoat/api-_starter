@@ -1,7 +1,8 @@
-package com.assets_france.api.account.infrastructure.dataprovider.mapper;
+package com.assets_france.api.account.infrastructure.mapper;
 
 import com.assets_france.api.account.domain.entity.Account;
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaAccount;
+import com.assets_france.api.account.infrastructure.entrypoint.request.SaveAccountRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -40,5 +41,15 @@ public class AccountMapper {
                                 .map(roleMapper::domainToEntity)
                                 .collect(Collectors.toSet())
                 );
+    }
+
+    public Account requestToDomain(SaveAccountRequest request) {
+        return new Account()
+                .setFirstName(request.getFirstName())
+                .setLastName(request.getLastName())
+                .setEmail(request.getEmail())
+                .setUsername(request.getUsername())
+                .setPassword(request.getPassword())
+                .setRoles(request.getRoles());
     }
 }

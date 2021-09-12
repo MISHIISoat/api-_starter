@@ -67,7 +67,9 @@ public class CustomAuthorizationFilter extends GenericFilterBean {
         var token = tokenProvider.resolveToken(httpRequest);
         if (hasText(token) && tokenProvider.validateToken(token)) {
             var authentication = tokenProvider.getAuthentication(token);
+            System.out.println("in doFilter authentication : " + authentication);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("in doFilter after security context holder");
         }
 
         chain.doFilter(request, response);

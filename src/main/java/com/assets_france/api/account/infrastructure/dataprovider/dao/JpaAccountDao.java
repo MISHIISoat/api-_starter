@@ -3,7 +3,7 @@ package com.assets_france.api.account.infrastructure.dataprovider.dao;
 import com.assets_france.api.account.domain.dao.AccountDao;
 import com.assets_france.api.account.domain.entity.Account;
 import com.assets_france.api.account.domain.exception.AccountExceptionType;
-import com.assets_france.api.account.infrastructure.dataprovider.mapper.AccountMapper;
+import com.assets_france.api.account.infrastructure.mapper.AccountMapper;
 import com.assets_france.api.account.infrastructure.dataprovider.repository.AccountRepository;
 import com.assets_france.api.shared.domain.exception.ForbiddenException;
 import com.assets_france.api.shared.domain.exception.NotFoundException;
@@ -26,7 +26,15 @@ public class JpaAccountDao implements AccountDao {
     private final AccountMapper accountMapper;
 
     @Override
-    public Account save(Account account) {
+    public Account save(Account account) throws ForbiddenException {
+        if (accountRepository.existsByEmail(account.getEmail())) {
+            var message = String.format(
+                    "%s: can't save account because email '%s' already exists",
+                    AccountExceptionType.ACCOUNT_FORBIDDEN,
+                    account.getEmail()
+            );
+            throw new ForbiddenException(message);
+        }
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         var accountToSave = accountMapper.domainToEntity(account);
         var savedAccount = accountRepository.save(accountToSave);
@@ -49,6 +57,7 @@ public class JpaAccountDao implements AccountDao {
     @Override
     @Transactional
     public Page<Account> findAllPagination(Integer page, Integer size) throws ForbiddenException {
+        System.out.println("findAllPagination");
         if (page == null || size == null) {
             var message = String.format(
                     "%s: page or size must be defined",

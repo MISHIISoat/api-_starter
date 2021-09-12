@@ -3,8 +3,8 @@ package com.assets_france.api.unit.account.infrastructure.dataprovider.dao;
 import com.assets_france.api.account.domain.entity.Account;
 import com.assets_france.api.account.domain.entity.Role;
 import com.assets_france.api.account.domain.exception.AccountExceptionType;
-import com.assets_france.api.account.infrastructure.dataprovider.mapper.AccountMapper;
-import com.assets_france.api.account.infrastructure.dataprovider.mapper.RoleMapper;
+import com.assets_france.api.account.infrastructure.mapper.AccountMapper;
+import com.assets_france.api.account.infrastructure.mapper.RoleMapper;
 import com.assets_france.api.account.infrastructure.dataprovider.dao.JpaAccountDao;
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaAccount;
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaRole;
@@ -54,7 +54,26 @@ class JpaAccountDaoTest {
     class SaveTest {
 
         @Test
-        void should_return_saved_account() {
+        void when_email_already_exists_should_throw_forbidden_exception() {
+            var concernedEmail = "toto@email.com";
+            var accountToSave = new Account()
+                    .setFirstName("toto")
+                    .setLastName("tata")
+                    .setRoles(Set.of(new Role().setId(7L).setName("role")))
+                    .setPassword("the_password")
+                    .setUsername("username")
+                    .setEmail(concernedEmail);
+
+            when(mockAccountRepository.existsByEmail(concernedEmail)).thenReturn(true);
+
+            assertThatThrownBy(() -> sut.save(accountToSave))
+                    .isExactlyInstanceOf(ForbiddenException.class)
+                    .hasMessage("%s: can't save account because email '%s' already exists", AccountExceptionType.ACCOUNT_FORBIDDEN, concernedEmail);
+        }
+
+        @Test
+        void when_email_not_exists_should_return_saved_account() throws ForbiddenException {
+            var concernedEmail = "toto@email.com";
             var concernedPassword = "the_password";
             var encodePassword = "encode_password";
             var accountToSave = new Account()
@@ -63,7 +82,9 @@ class JpaAccountDaoTest {
                     .setRoles(Set.of(new Role().setId(7L).setName("role")))
                     .setPassword(concernedPassword)
                     .setUsername("username")
-                    .setEmail("toto@email.com");
+                    .setEmail(concernedEmail);
+            when(mockAccountRepository.existsByEmail(concernedEmail)).thenReturn(false);
+
             var entityAccountToSave = accountMapper.domainToEntity(accountToSave);
             entityAccountToSave.setPassword(encodePassword);
             when(mockPasswordEncoder.encode(concernedPassword)).thenReturn(encodePassword);

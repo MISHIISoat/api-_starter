@@ -1,7 +1,7 @@
 package com.assets_france.api.unit.account.infrastructure.dataprovider.dao;
 
 import com.assets_france.api.account.domain.entity.Role;
-import com.assets_france.api.account.infrastructure.dataprovider.mapper.RoleMapper;
+import com.assets_france.api.account.infrastructure.mapper.RoleMapper;
 import com.assets_france.api.account.infrastructure.dataprovider.dao.JpaRoleDao;
 import com.assets_france.api.account.infrastructure.dataprovider.entity.JpaRole;
 import com.assets_france.api.account.infrastructure.dataprovider.repository.RoleRepository;

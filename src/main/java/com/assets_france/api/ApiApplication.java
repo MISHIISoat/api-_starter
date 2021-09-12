@@ -27,10 +27,10 @@ public class ApiApplication {
             roleDao.save(new Role().setName("ROLE_ADMIN"));
             roleDao.save(new Role().setName("ROLE_SUPER_ADMIN"));
 
-            accountDao.save(new Account().setFirstName("John").setLastName("Travolta").setUsername("john@travolta.com").setPassword("1234").setRoles(new HashSet<>()));
-            accountDao.save(new Account().setFirstName("Jim").setLastName("Carrey").setUsername("jim@carrey.com").setPassword("1234").setRoles(new HashSet<>()));
-            accountDao.save(new Account().setFirstName("Will").setLastName("Smith").setUsername("will@smith.fr").setPassword("7896").setRoles(new HashSet<>()));
-            accountDao.save(new Account().setFirstName("Masa").setLastName("Ishii").setUsername("masa@ishii.fr").setPassword("123123").setRoles(new HashSet<>()));
+            accountDao.save(new Account().setFirstName("John").setLastName("Travolta").setUsername("john@travolta.com").setEmail("john@travolta.com").setPassword("1234").setRoles(new HashSet<>()));
+            accountDao.save(new Account().setFirstName("Jim").setLastName("Carrey").setUsername("jim@carrey.com").setEmail("jim@carrey.com").setPassword("1234").setRoles(new HashSet<>()));
+            accountDao.save(new Account().setFirstName("Will").setLastName("Smith").setUsername("will@smith.fr").setEmail("will@smith.fr").setPassword("7896").setRoles(new HashSet<>()));
+            accountDao.save(new Account().setFirstName("Masa").setLastName("Ishii").setUsername("masa@ishii.fr").setEmail("masa@ishii.fr").setPassword("123123").setRoles(new HashSet<>()));
 
             accountRoleDao.addRoleToUser("john@travolta.com", "ROLE_PARTNER");
             accountRoleDao.addRoleToUser("john@travolta.com", "ROLE_USER");
