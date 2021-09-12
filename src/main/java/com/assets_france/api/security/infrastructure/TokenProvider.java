@@ -80,9 +80,7 @@ public class TokenProvider {
                         .collect(Collectors.toList());
         User principal = new User(claims.getSubject(), "", authorities);
         log.info("Get authentication of user : {}", principal.getUsername());
-        var authentication = new UsernamePasswordAuthenticationToken(principal, token, authorities);
-        log.info("authentication created");
-        return authentication;
+        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
     private Jws<Claims> parseToken(String authToken) {

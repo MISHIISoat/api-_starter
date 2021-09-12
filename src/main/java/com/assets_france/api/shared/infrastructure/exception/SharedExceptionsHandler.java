@@ -1,4 +1,4 @@
-package com.assets_france.api.shared.helper.exception;
+package com.assets_france.api.shared.infrastructure.exception;
 
 import com.assets_france.api.shared.domain.exception.ForbiddenException;
 import com.assets_france.api.shared.domain.exception.NotFoundException;

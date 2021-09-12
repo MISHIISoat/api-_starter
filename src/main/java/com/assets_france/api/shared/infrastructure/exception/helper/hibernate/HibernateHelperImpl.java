@@ -1,4 +1,4 @@
-package com.assets_france.api.shared.helper.hibernate;
+package com.assets_france.api.shared.infrastructure.exception.helper.hibernate;
 
 import com.assets_france.api.shared.domain.helper.HibernateHelper;
 import org.hibernate.Hibernate;

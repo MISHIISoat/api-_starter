@@ -57,7 +57,6 @@ public class JpaAccountDao implements AccountDao {
     @Override
     @Transactional
     public Page<Account> findAllPagination(Integer page, Integer size) throws ForbiddenException {
-        System.out.println("findAllPagination");
         if (page == null || size == null) {
             var message = String.format(
                     "%s: page or size must be defined",

@@ -1,4 +1,4 @@
-package com.assets_france.api.shared.helper.json;
+package com.assets_france.api.shared.infrastructure.exception.helper.json;
 
 import com.assets_france.api.shared.domain.exception.JsonHelperException;
 import com.assets_france.api.shared.domain.helper.JsonHelper;
