@@ -1,74 +1,42 @@
 package com.assets_france.api;
 
-import com.assets_france.api.domain.Role;
-import com.assets_france.api.domain.User;
-import com.assets_france.api.sender.EmailSenderService;
-import com.assets_france.api.service.RoleService;
-import com.assets_france.api.service.UserRoleService;
-import com.assets_france.api.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.assets_france.api.account.domain.dao.AccountDao;
+import com.assets_france.api.account.domain.dao.AccountRoleDao;
+import com.assets_france.api.account.domain.dao.RoleDao;
+import com.assets_france.api.account.domain.entity.Account;
+import com.assets_france.api.account.domain.entity.Role;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.mail.MessagingException;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 @SpringBootApplication
 public class ApiApplication {
-
-    @Autowired
-    private EmailSenderService service;
 
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void triggerMail() throws MessagingException {
-//        service.sendSimpleEmail(
-//                "johnny12doe34@gmail.com",
-//                "This is the Email Body...",
-//                "This is the Email Subject"
-//        );
-
-        service.sentEmailWithAttachment(
-                "ishiimasataka@yahoo.fr",
-                "This is Email Body with Attachment...",
-                "This email has attachment",
-                "D:\\Création perso\\Action.pdf"
-        );
-
-    }
-
     @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    CommandLineRunner run(UserService userService, RoleService roleService, UserRoleService userRoleService) {
+    CommandLineRunner run(AccountDao accountDao, RoleDao roleDao, AccountRoleDao accountRoleDao) {
         return args -> {
-            roleService.save(new Role(null, "ROLE_USER"));
-            roleService.save(new Role(null, "ROLE_PARTNER"));
-            roleService.save(new Role(null, "ROLE_ADMIN"));
-            roleService.save(new Role(null, "ROLE_SUPER_ADMIN"));
+            roleDao.save(new Role().setName("ROLE_USER"));
+            roleDao.save(new Role().setName("ROLE_PARTNER"));
+            roleDao.save(new Role().setName("ROLE_ADMIN"));
+            roleDao.save(new Role().setName("ROLE_SUPER_ADMIN"));
 
-            userService.save(new User(null, "John", " Travolta","john@travolta.com", "1234", new ArrayList<>()));
-            userService.save(new User(null, "Jim", " Carrey","jim@carrey.com", "1234", new ArrayList<>()));
-            userService.save(new User(null, "Will", "Smith", "will@smith.fr", "7896", new ArrayList<>()));
-            userService.save(new User(null, "Masa", "Ishii", "masa@ishii.fr", "123123", new ArrayList<>()));
+            accountDao.save(new Account().setFirstName("John").setLastName("Travolta").setUsername("john@travolta.com").setEmail("john@travolta.com").setPassword("1234").setRoles(new HashSet<>()));
+            accountDao.save(new Account().setFirstName("Jim").setLastName("Carrey").setUsername("jim@carrey.com").setEmail("jim@carrey.com").setPassword("1234").setRoles(new HashSet<>()));
+            accountDao.save(new Account().setFirstName("Will").setLastName("Smith").setUsername("will@smith.fr").setEmail("will@smith.fr").setPassword("7896").setRoles(new HashSet<>()));
+            accountDao.save(new Account().setFirstName("Masa").setLastName("Ishii").setUsername("masa@ishii.fr").setEmail("masa@ishii.fr").setPassword("123123").setRoles(new HashSet<>()));
 
-            userRoleService.addRoleToUser("john@travolta.com", "ROLE_PARTNER");
-            userRoleService.addRoleToUser("john@travolta.com", "ROLE_USER");
-            userRoleService.addRoleToUser("jim@carrey.com", "ROLE_PARTNER");
-            userRoleService.addRoleToUser("will@smith.fr", "ROLE_ADMIN");
-            userRoleService.addRoleToUser("masa@ishii.fr", "ROLE_SUPER_ADMIN");
+            accountRoleDao.addRoleToUser("john@travolta.com", "ROLE_PARTNER");
+            accountRoleDao.addRoleToUser("john@travolta.com", "ROLE_USER");
+            accountRoleDao.addRoleToUser("jim@carrey.com", "ROLE_PARTNER");
+            accountRoleDao.addRoleToUser("will@smith.fr", "ROLE_ADMIN");
+            accountRoleDao.addRoleToUser("masa@ishii.fr", "ROLE_SUPER_ADMIN");
         };
     }
 }
